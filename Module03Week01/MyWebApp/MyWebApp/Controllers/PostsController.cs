@@ -22,7 +22,7 @@ namespace MyWebApp.Controllers
         public ActionResult Details(int id)
         {
             Post post = posts.Find(p => p.Id == id);
-            if (post == null)
+            if (post.Message == null)
             {
                 return HttpNotFound();
             }
