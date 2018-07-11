@@ -29,9 +29,22 @@ namespace MyWebApp.Controllers
             return View(post);
         }
 
+        public ActionResult Delete(int id)
+        {
+            Post post = posts.Find(p => p.Id == id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            posts.Remove(post);
+            return RedirectToAction("Index");
+        }
+
+
         [HttpGet]
         public ActionResult Create()
         {
+
             return View();
         }
         [HttpPost]
@@ -42,5 +55,6 @@ namespace MyWebApp.Controllers
             posts.Add(post);
             return RedirectToAction("Index");
         }
+
     }
 }
