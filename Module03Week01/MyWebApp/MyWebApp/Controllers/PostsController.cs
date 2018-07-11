@@ -29,6 +29,7 @@ namespace MyWebApp.Controllers
             return View(post);
         }
 
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             Post post = posts.Find(p => p.Id == id);
@@ -40,11 +41,31 @@ namespace MyWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            Post post = posts.Find(p => p.Id == id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+        [HttpPost]
+        public ActionResult Edit(Post post)
+        {
+            Post postFromList = posts.Find(p => p.Id == post.Id);
+            postFromList.Message = post.Message;
+            postFromList.PostType = post.PostType;
+            postFromList.IsSticky = post.IsSticky;
+            postFromList.Priority = post.Priority;
+
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public ActionResult Create()
         {
-
             return View();
         }
         [HttpPost]
@@ -52,6 +73,7 @@ namespace MyWebApp.Controllers
         {
             Id++;
             post.Id = Id;
+            post.TimeOfPosting = DateTime.Now;
             posts.Add(post);
             return RedirectToAction("Index");
         }
