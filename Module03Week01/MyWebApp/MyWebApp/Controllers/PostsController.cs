@@ -16,6 +16,7 @@ namespace MyWebApp.Controllers
         // GET: Posts
         public ActionResult Index()
         {
+            ViewBag.PageCreateDate = DateTime.Now;
             return View(posts);
         }
 
